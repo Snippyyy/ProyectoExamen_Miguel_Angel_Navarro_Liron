@@ -25,6 +25,10 @@ class StorePostRequest extends FormRequest
             'title' => 'required|min:5',
             'body' => 'required',
             'published_at' => 'nullable|date',
+            'slug' => 'required',
+            'summary' => 'required|max:50',
+            'reading_time' => 'integer',
+            'status' => 'required|in:published,draft,archived,pending',
         ];
     }
 }

@@ -30,26 +30,6 @@
     <x-input-error :messages="$errors->get('published_at')" class="mt-2" />
 </div>
 
-<div>
-    <x-input-label for="summary" :value="__('Summary')" />
-    <x-textarea id="summary"
-                name="summary"
-                class="block w-full mt-1"
-                maxlength="50"
-    >{{ old('summary', $post->summary) }}</x-textarea>
-    <x-input-error :messages="$errors->get('summary')" class="mt-2" />
-</div>
-
-<div>
-    <x-input-label for="slug" :value="__('Slug')" />
-    <x-text-input id="slug"
-                  name="slug"
-                  type="text"
-                  value="{{ old('slug', $post->slug) }}"
-                  class="block w-full mt-1"
-    />
-    <x-input-error :messages="$errors->get('slug')" class="mt-2" />
-</div>
 
 <div>
     <x-input-label for="status" :value="__('Status')" />

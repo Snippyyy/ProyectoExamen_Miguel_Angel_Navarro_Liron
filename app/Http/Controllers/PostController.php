@@ -6,6 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -34,7 +35,11 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        auth()->user()->posts()->create($request->validated());
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['title']);
+        $data['summary'] = Str::limit($data['body'], 50);
+
+        auth()->user()->posts()->create($data);
 
         return to_route('posts.index')
             ->with('status', 'Post created successfully');
@@ -47,7 +52,11 @@ class PostController extends Controller
 
     public function update(UpdatePostRequest $request, Post $post)
     {
-        $post->update($request->validated());
+
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['title']);
+        $data['summary'] = Str::limit($data['body'], 50);
+        $post->update($data);
 
         return to_route('posts.show', $post)
             ->with('status', 'Post updated successfully');

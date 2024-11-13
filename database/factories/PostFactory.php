@@ -14,20 +14,22 @@ class PostFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    use Illuminate\Support\Str;
+
     public function definition(): array
     {
+        $title = $this->faker->sentence();
         return [
-            'title' => $this->faker->sentence(),
+            'title' => $title,
             'body' => $this->faker->paragraph(),
             'published_at' => random_int(0, 2)
                 ? $this->faker->dateTimeBetween('-1 month', '+1 months')
                 : null,
-            'slug' => $this->faker->slug(),
-            'summary' => $this->faker->paragraph(),
-            'reading_time' => $this->faker->numberBetween(0, 5),
-            'status' => $this->faker->randomElement(['published', 'draft','archived','pending']),
-
-            ];
-
+            'summary' => Str::limit($this->faker->text(200), 50),
+            'slug' => Str::snake($title),
+            'reading_time' => $this->faker->numberBetween(1, 5), //
+            'status' => $this->faker->randomElement(['published', 'draft', 'archived', 'pending']),
+        ];
     }
+
 }

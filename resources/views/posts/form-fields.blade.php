@@ -57,6 +57,7 @@
         <option value="published">Published</option>
         <option value="archived">Archived</option>
         <option value="pending">Pending</option>
+        <option value="draft">Draft</option>
     </select>
     <x-input-error :messages="$errors->get('status')" class="mt-2" />
 </div>
